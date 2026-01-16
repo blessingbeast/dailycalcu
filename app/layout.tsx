@@ -3,10 +3,17 @@ import "./globals.css";
 import Header from "./components/Header";
 
 export const metadata: Metadata = {
+
+  metadataBase: new URL("https://dailycalcu.com"),
+  alternates: {
+    canonical: "/",
+  },
   title: "DailyCalcu – Simple Daily Life Calculators",
   description:
     "DailyCalcu offers free, fast, and accurate online calculators for salary, finance, health, and everyday use.",
 };
+
+
 
 export default function RootLayout({
   children,
