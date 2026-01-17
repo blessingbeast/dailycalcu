@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
+import Script from "next/script";
+
 
 export const metadata: Metadata = {
 
@@ -13,7 +15,10 @@ export const metadata: Metadata = {
     "DailyCalcu offers free, fast, and accurate online calculators for salary, finance, health, and everyday use.",
 };
 
-
+<head>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3286751127524336"
+     crossOrigin="anonymous"></script>
+      </head>
 
 export default function RootLayout({
   children,
