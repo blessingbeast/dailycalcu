@@ -15,10 +15,6 @@ export const metadata: Metadata = {
     "DailyCalcu offers free, fast, and accurate online calculators for salary, finance, health, and everyday use.",
 };
 
-<head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3286751127524336"
-     crossOrigin="anonymous"></script>
-      </head>
 
 export default function RootLayout({
   children,
@@ -27,6 +23,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+
+      <head>
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3286751127524336"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
+      </head>
+
       <body className="bg-white text-gray-900 antialiased">
         
         {/* HEADER */}
