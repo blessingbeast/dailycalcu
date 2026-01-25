@@ -7,6 +7,46 @@ export const metadata: Metadata = {
     "Use this free GST calculator to calculate GST amount, GST inclusive price, and GST exclusive price quickly and accurately.",
 };
 
+<section className="mt-12">
+  <h2 className="text-xl font-semibold mb-4">
+    Related Calculators
+  </h2>
+
+  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+    <li>
+      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
+        BMI Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
+        Age Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
+        SIP Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
+        Compound Interest Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
+        Percentage Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
+        Simple Interest Calculator
+      </a>
+    </li>
+  </ul>
+</section>
+
+
 /* ======================
    FAQ DATA (10 QUESTIONS)
 ====================== */

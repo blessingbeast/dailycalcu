@@ -7,6 +7,75 @@ export const metadata: Metadata = {
     "Use this free salary increment calculator to calculate your new salary after applying an increment percentage. Simple, fast, and accurate.",
 };
 
+<section className="mt-12">
+
+  <section className="mb-6">
+  <h1 className="text-3xl font-semibold mb-3">
+    Salary Increment Calculator
+  </h1>
+
+  <p className="text-gray-700 mb-3">
+    A salary increment is an increase in your existing salary, usually given
+    during annual appraisals or performance reviews. Knowing how much your new
+    salary will be after an increment helps you plan your finances, savings,
+    and future expenses better.
+  </p>
+
+  <p className="text-gray-700 mb-3">
+    This salary increment calculator allows you to quickly calculate your
+    updated salary by entering your current salary and the expected increment
+    percentage. The calculator instantly shows your increment amount and your
+    new salary after the hike.
+  </p>
+
+  <p className="text-gray-700">
+    Whether you are evaluating a job offer, preparing for an appraisal
+    discussion, or simply curious about how a percentage increase affects your
+    income, this free tool gives accurate results without any registration.
+  </p>
+</section>
+
+  <h2 className="text-xl font-semibold mb-4">
+    Related Calculators
+  </h2>
+
+  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+    <li>
+      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
+        BMI Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
+        Age Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
+        SIP Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
+        Compound Interest Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
+        Percentage Calculator
+      </a>
+    </li>
+    <li>
+      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
+        Simple Interest Calculator
+      </a>
+    </li>
+  </ul>
+</section>
+
+
+
+
 /* ======================
    FAQ DATA (10 QUESTIONS)
 ====================== */
@@ -54,7 +123,7 @@ const faqs = [
   {
     question: "Is this salary increment calculator free to use?",
     answer:
-      "Yes, the salary increment calculator on DailyCalcu is completely free and can be used unlimitedCTany number of times.",
+      "Yes, the salary increment calculator on DailyCalcu is completely free and can be used unlimited number of times.",
   },
   {
     question: "Do I need to sign up to use this calculator?",
