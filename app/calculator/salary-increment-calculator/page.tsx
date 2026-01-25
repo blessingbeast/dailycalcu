@@ -9,32 +9,7 @@ export const metadata: Metadata = {
 
 <section className="mt-12">
 
-  <section className="mb-6">
-  <h1 className="text-3xl font-semibold mb-3">
-    Salary Increment Calculator
-  </h1>
-
-  <p className="text-gray-700 mb-3">
-    A salary increment is an increase in your existing salary, usually given
-    during annual appraisals or performance reviews. Knowing how much your new
-    salary will be after an increment helps you plan your finances, savings,
-    and future expenses better.
-  </p>
-
-  <p className="text-gray-700 mb-3">
-    This salary increment calculator allows you to quickly calculate your
-    updated salary by entering your current salary and the expected increment
-    percentage. The calculator instantly shows your increment amount and your
-    new salary after the hike.
-  </p>
-
-  <p className="text-gray-700">
-    Whether you are evaluating a job offer, preparing for an appraisal
-    discussion, or simply curious about how a percentage increase affects your
-    income, this free tool gives accurate results without any registration.
-  </p>
-</section>
-
+  
   <h2 className="text-xl font-semibold mb-4">
     Related Calculators
   </h2>
