@@ -6,49 +6,41 @@ export const metadata: Metadata = {
   description:
     "Use this free BMR and calorie calculator to estimate your basal metabolic rate and daily calorie needs based on age, height, weight, and activity level.",
 };
+function CalculatorCard({
+  title,
+  description,
+  href,
+  accent,
+}: {
+  title: string;
+  description: string;
+  href: string;
+  accent: string;
+}) {
+  return (
+    <a
+      href={href}
+      className="group block border rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition"
+    >
+      <div
+        className={`inline-block px-3 py-1 rounded-full text-sm font-medium mb-3 ${accent}`}
+      >
+        Calculator
+      </div>
 
+      <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600">
+        {title}
+      </h3>
 
-<section className="mt-12">
-  <h2 className="text-xl font-semibold mb-4">
-    Related Calculators
-  </h2>
-
-  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-    <li>
-      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
-        BMI Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
-        Age Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
-        SIP Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
-        Compound Interest Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
-        Percentage Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
-        Simple Interest Calculator
-      </a>
-    </li>
-  </ul>
-</section>
+      <p className="text-gray-600 text-sm mt-2">
+        {description}
+      </p>
+    </a>
+  );
+}
 
 /* ======================
-   FAQ DATA (10 QUESTIONS)
+   FAQ DATA
 ====================== */
 const faqs = [
   {
@@ -104,7 +96,7 @@ const faqs = [
 ];
 
 /* ======================
-   FAQ SCHEMA (JSON-LD)
+   FAQ SCHEMA
 ====================== */
 const faqSchema = {
   "@context": "https://schema.org",
@@ -122,7 +114,7 @@ const faqSchema = {
 export default function Page() {
   return (
     <>
-      {/* FAQ Structured Data for Google */}
+      {/* FAQ Structured Data */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -133,8 +125,65 @@ export default function Page() {
       {/* Calculator UI */}
       <BmrCalculatorClient />
 
-      {/* Visible FAQ Section (Required for Rich Results) */}
-      <section className="max-w-3xl mx-auto mt-20 px-2">
+
+   {/* ======================
+   RELATED CALCULATORS
+====================== */}
+<section className="max-w-6xl mx-auto mt-20 px-4">
+  <h2 className="text-2xl font-semibold mb-8 text-center">
+    Related Calculators
+  </h2>
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    
+    <CalculatorCard
+      title="BMI Calculator"
+      description="Check your Body Mass Index and health category."
+      href="/calculator/bmi-calculator"
+      accent="bg-blue-100 text-blue-700"
+    />
+
+    <CalculatorCard
+      title="Age Calculator"
+      description="Calculate your exact age in years, months, and days."
+      href="/calculator/age-calculator"
+      accent="bg-green-100 text-green-700"
+    />
+
+    <CalculatorCard
+      title="SIP Calculator"
+      description="Estimate returns on your systematic investments."
+      href="/calculator/sip-calculator"
+      accent="bg-purple-100 text-purple-700"
+    />
+
+    <CalculatorCard
+      title="Compound Interest Calculator"
+      description="Calculate compound interest growth over time."
+      href="/calculator/compound-interest-calculator"
+      accent="bg-orange-100 text-orange-700"
+    />
+
+    <CalculatorCard
+      title="Percentage Calculator"
+      description="Quickly calculate percentages and differences."
+      href="/calculator/percentage-calculator"
+      accent="bg-pink-100 text-pink-700"
+    />
+
+    <CalculatorCard
+      title="Simple Interest Calculator"
+      description="Calculate simple interest for loans or savings."
+      href="/calculator/simple-interest-calculator"
+      accent="bg-indigo-100 text-indigo-700"
+    />
+
+  </div>
+</section>
+
+
+      {/* VISIBLE FAQ SECTION */}
+      <section className="max-w-3xl mx-auto mt-20 px-4">
         <h2 className="text-2xl font-semibold mb-8">
           Frequently Asked Questions
         </h2>
