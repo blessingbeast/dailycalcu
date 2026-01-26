@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import AgeCalculatorClient from "./AgeCalculatorClient";
+import RelatedCalculators from "@/app/components/RelatedCalculators";
 
 /* ======================
    METADATA
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 /* ======================
-   FAQ DATA (10 QUESTIONS)
+   FAQ DATA
 ====================== */
 const faqs = [
   {
@@ -70,7 +71,7 @@ const faqs = [
 ];
 
 /* ======================
-   FAQ SCHEMA (JSON-LD)
+   SCHEMA
 ====================== */
 const faqSchema = {
   "@context": "https://schema.org",
@@ -85,13 +86,38 @@ const faqSchema = {
   })),
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: "https://dailycalcu.com",
+    },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Calculators",
+      item: "https://dailycalcu.com/calculator",
+    },
+    {
+      "@type": "ListItem",
+      position: 3,
+      name: "Age Calculator",
+      item: "https://dailycalcu.com/calculator/age-calculator",
+    },
+  ],
+};
+
 /* ======================
-   PAGE COMPONENT
+   PAGE
 ====================== */
 export default function Page() {
   return (
     <>
-      {/* FAQ Structured Data */}
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -99,30 +125,25 @@ export default function Page() {
         }}
       />
 
-      {/* Calculator UI */}
+      {/* Breadcrumb Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema),
+        }}
+      />
+
+      {/* Calculator */}
       <AgeCalculatorClient />
 
-      {/* Related Calculators */}
-      <section className="max-w-5xl mx-auto mt-16 px-4">
-        <h2 className="text-xl font-semibold mb-4">
-          Related Calculators
-        </h2>
+      {/* Related Calculators (Auto) */}
+      <RelatedCalculators currentSlug="age-calculator" />
 
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-          <li><a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">BMI Calculator</a></li>
-          <li><a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">SIP Calculator</a></li>
-          <li><a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">Compound Interest Calculator</a></li>
-          <li><a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">Percentage Calculator</a></li>
-          <li><a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">Simple Interest Calculator</a></li>
-        </ul>
-      </section>
-
-      {/* Visible FAQ Section */}
+      {/* Visible FAQ */}
       <section className="max-w-3xl mx-auto mt-20 px-4">
         <h2 className="text-2xl font-semibold mb-8">
           Frequently Asked Questions
         </h2>
-        
 
         {faqs.map((faq, index) => (
           <div key={index} className="mb-6">

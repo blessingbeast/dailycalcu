@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import RelatedCalculators from "@/app/components/RelatedCalculators";
+
 
 export default function BMICalculatorClient() {
   const [weight, setWeight] = useState("");
@@ -240,6 +242,8 @@ export default function BMICalculatorClient() {
     storing any personal data.
   </p>
 </section>
+<RelatedCalculators currentSlug="bmr-calorie-calculator" />
+
 
     </section>
   );

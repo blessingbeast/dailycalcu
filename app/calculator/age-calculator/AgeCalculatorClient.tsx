@@ -43,7 +43,9 @@ export default function AgeCalculatorClient() {
      DYNAMIC PROGRESS LOGIC
   ======================= */
   const EXPECTED_LIFESPAN = 80;
-
+<p className="text-xs text-gray-400 mt-1">
+  Based on a global average life expectancy of ~80 years.
+</p>
   const lifeProgress = result
     ? Math.min((result.years / EXPECTED_LIFESPAN) * 100, 100)
     : 0;
@@ -55,12 +57,14 @@ export default function AgeCalculatorClient() {
       )
     : 0;
 
-  const dayProgress = result
-    ? Math.min(
-        (result.totalDays / (EXPECTED_LIFESPAN * 365)) * 100,
-        100
-      )
-    : 0;
+  const AVERAGE_YEAR_DAYS = 365.25;
+
+const dayProgress = result
+  ? Math.min(
+      (result.totalDays / (EXPECTED_LIFESPAN * AVERAGE_YEAR_DAYS)) * 100,
+      100
+    )
+  : 0;
 
   return (
     <section className="max-w-2xl mx-auto">
