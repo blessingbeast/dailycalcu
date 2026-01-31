@@ -204,8 +204,47 @@ export default function Page() {
         </p>
       </article>
 
-      {/* Related Calculators */}
-      <RelatedCalculators currentSlug="calorie-deficit-calculator" />
+      <RelatedCalculators
+  items={[
+    {
+      title: "BMI Calculator",
+      description: "Check your Body Mass Index and health category.",
+      href: "/calculator/bmi-calculator",
+      color: "blue",
+    },
+    {
+      title: "Age Calculator",
+      description: "Calculate your exact age in years, months, and days.",
+      href: "/calculator/age-calculator",
+      color: "green",
+    },
+    {
+      title: "SIP Calculator",
+      description: "Estimate returns on your systematic investments.",
+      href: "/calculator/sip-calculator",
+      color: "purple",
+    },
+    {
+      title: "Compound Interest Calculator",
+      description: "Calculate compound interest growth over time.",
+      href: "/calculator/compound-interest-calculator",
+      color: "orange",
+    },
+    {
+      title: "Percentage Calculator",
+      description: "Quickly calculate percentages and differences.",
+      href: "/calculator/percentage-calculator",
+      color: "pink",
+    },
+    {
+      title: "Simple Interest Calculator",
+      description: "Calculate simple interest for loans or savings.",
+      href: "/calculator/simple-interest-calculator",
+      color: "indigo",
+    },
+  ]}
+/>
+
 
       {/* Visible FAQ */}
       <section className="max-w-3xl mx-auto mt-20 px-4">

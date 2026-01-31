@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import RelatedCalculators from "@/app/components/RelatedCalculators";
 
 
 export default function BMICalculatorClient() {
@@ -91,28 +90,7 @@ export default function BMICalculatorClient() {
         )}
       </div>
 
-      {/* SEO Content */}
-      <article className="prose max-w-none">
-        <h1 className="font-semibold">What is BMI?</h1>
-        <p>
-          Body Mass Index (BMI) is a measure of body fat based on your weight
-          and height. It is commonly used to assess whether a person has a
-          healthy body weight.
-        </p>
-
-        <h3>BMI Formula</h3>
-        <p>
-          <strong>BMI</strong> = Weight (kg) ÷ Height² (m²)
-        </p>
-
-        <h3>BMI Categories</h3>
-        <ul>
-          <li>Underweight: BMI less than 18.5</li>
-          <li>Normal weight: BMI between 18.5 and 24.9</li>
-          <li>Overweight: BMI between 25 and 29.9</li>
-          <li>Obese: BMI 30 or above</li>
-        </ul>
-      </article>
+      
 <section className="mb-10">
   <h1 className="text-3xl font-semibold mb-4 mt-5">
     BMI Calculator
@@ -242,7 +220,7 @@ export default function BMICalculatorClient() {
     storing any personal data.
   </p>
 </section>
-<RelatedCalculators currentSlug="bmr-calorie-calculator" />
+
 
 
     </section>

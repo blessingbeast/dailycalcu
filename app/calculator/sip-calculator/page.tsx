@@ -1,5 +1,7 @@
 import { Metadata } from "next";
 import SipCalculatorClient from "./SipCalculatorClient";
+import RelatedCalculators from "@/app/components/RelatedCalculators";
+
 
 export const metadata: Metadata = {
   title: "SIP Calculator | Calculate SIP Returns & Maturity – DailyCalcu",
@@ -7,44 +9,7 @@ export const metadata: Metadata = {
     "Use this free SIP calculator to estimate mutual fund SIP returns, total investment, and maturity amount easily and accurately.",
 };
 
-<section className="mt-12">
-  <h2 className="text-xl font-semibold mb-4">
-    Related Calculators
-  </h2>
 
-  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-    <li>
-      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
-        BMI Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
-        Age Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
-        SIP Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
-        Compound Interest Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
-        Percentage Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
-        Simple Interest Calculator
-      </a>
-    </li>
-  </ul>
-</section>
 
 /* ======================
    FAQ DATA (10 QUESTIONS)
@@ -131,6 +96,47 @@ export default function Page() {
 
       {/* Calculator UI */}
       <SipCalculatorClient />
+
+<RelatedCalculators
+  items={[
+    {
+      title: "BMI Calculator",
+      description: "Check your Body Mass Index and health category.",
+      href: "/calculator/bmi-calculator",
+      color: "blue",
+    },
+    {
+      title: "Age Calculator",
+      description: "Calculate your exact age in years, months, and days.",
+      href: "/calculator/age-calculator",
+      color: "green",
+    },
+    {
+      title: "SIP Calculator",
+      description: "Estimate returns on your systematic investments.",
+      href: "/calculator/sip-calculator",
+      color: "purple",
+    },
+    {
+      title: "Compound Interest Calculator",
+      description: "Calculate compound interest growth over time.",
+      href: "/calculator/compound-interest-calculator",
+      color: "orange",
+    },
+    {
+      title: "Percentage Calculator",
+      description: "Quickly calculate percentages and differences.",
+      href: "/calculator/percentage-calculator",
+      color: "pink",
+    },
+    {
+      title: "Simple Interest Calculator",
+      description: "Calculate simple interest for loans or savings.",
+      href: "/calculator/simple-interest-calculator",
+      color: "indigo",
+    },
+  ]}
+/>
 
       {/* Visible FAQ Section (Required for Rich Results) */}
       <section className="max-w-3xl mx-auto mt-20 px-2">

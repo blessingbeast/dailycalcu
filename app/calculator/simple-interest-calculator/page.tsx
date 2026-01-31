@@ -1,110 +1,78 @@
 import { Metadata } from "next";
 import SimpleInterestCalculatorClient from "./SimpleInterestCalculatorClient";
+import RelatedCalculators from "@/app/components/RelatedCalculators";
 
+
+/* ======================
+   METADATA
+====================== */
 export const metadata: Metadata = {
   title: "Simple Interest Calculator | Calculate Simple Interest – DailyCalcu",
   description:
     "Use this free simple interest calculator to calculate interest and total amount based on principal, rate of interest, and time period.",
+  alternates: {
+    canonical: "https://dailycalcu.com/calculator/simple-interest-calculator",
+  },
 };
 
-<section className="mt-12">
-  <h2 className="text-xl font-semibold mb-4">
-    Related Calculators
-  </h2>
-
-  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-    <li>
-      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
-        BMI Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
-        Age Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
-        SIP Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
-        Compound Interest Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
-        Percentage Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
-        Simple Interest Calculator
-      </a>
-    </li>
-  </ul>
-</section>
-
-
 /* ======================
-   FAQ DATA (10 QUESTIONS)
+   FAQ DATA
 ====================== */
 const faqs = [
   {
     question: "What is simple interest?",
     answer:
-      "Simple interest is a method of calculating interest where interest is calculated only on the original principal amount, not on accumulated interest.",
+      "Simple interest is a method of calculating interest where interest is calculated only on the original principal amount.",
   },
   {
     question: "How is simple interest calculated?",
     answer:
-      "Simple interest is calculated using the formula: Simple Interest = (Principal × Rate × Time) / 100.",
+      "Simple interest is calculated using the formula SI = (Principal × Rate × Time) ÷ 100.",
   },
   {
-    question: "What is the simple interest formula?",
+    question: "What is the difference between simple and compound interest?",
     answer:
-      "The simple interest formula is SI = (P × R × T) / 100, where P is principal, R is rate of interest, and T is time in years.",
+      "Simple interest is calculated only on the principal, whereas compound interest is calculated on principal plus accumulated interest.",
   },
   {
-    question: "What is the difference between simple interest and compound interest?",
+    question: "Is simple interest used for loans?",
     answer:
-      "Simple interest is calculated only on the principal, while compound interest is calculated on both principal and accumulated interest.",
-  },
-  {
-    question: "Can this calculator be used for loans?",
-    answer:
-      "Yes, this calculator can be used to estimate interest on loans that follow simple interest calculation methods.",
+      "Yes, many short-term loans and personal lending agreements use simple interest.",
   },
   {
     question: "Can this calculator be used for savings?",
     answer:
-      "Yes, it can be used to calculate returns on savings or deposits that use simple interest.",
+      "Yes, it can estimate returns on savings or deposits that follow simple interest.",
   },
   {
-    question: "Is simple interest calculated monthly or yearly?",
+    question: "Is simple interest calculated yearly?",
     answer:
-      "Simple interest is usually calculated yearly, but it can be adjusted for monthly or daily periods depending on the time value entered.",
+      "Yes, it is usually calculated annually but can be adjusted for months or days.",
   },
   {
-    question: "Is this simple interest calculator accurate?",
+    question: "Does this calculator include taxes?",
     answer:
-      "Yes, the calculator uses standard mathematical formulas to provide accurate simple interest calculations.",
+      "No, it only calculates interest and does not include taxes or fees.",
   },
   {
-    question: "Does this calculator include taxes or fees?",
+    question: "Is this calculator accurate?",
     answer:
-      "No, this calculator does not include taxes, processing fees, or other charges. It only calculates interest based on user input.",
+      "Yes, it uses standard mathematical formulas for accuracy.",
   },
   {
-    question: "Is this simple interest calculator free to use?",
+    question: "Can students use this calculator?",
     answer:
-      "Yes, the simple interest calculator on DailyCalcu is completely free and does not require registration.",
+      "Yes, it is widely used by students for learning and exam preparation.",
+  },
+  {
+    question: "Is this simple interest calculator free?",
+    answer:
+      "Yes, DailyCalcu’s simple interest calculator is completely free.",
   },
 ];
 
 /* ======================
-   FAQ SCHEMA (JSON-LD)
+   FAQ SCHEMA
 ====================== */
 const faqSchema = {
   "@context": "https://schema.org",
@@ -122,7 +90,7 @@ const faqSchema = {
 export default function Page() {
   return (
     <>
-      {/* FAQ Structured Data for Google */}
+      {/* FAQ Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -130,11 +98,57 @@ export default function Page() {
         }}
       />
 
-      {/* Calculator UI */}
+      {/* Calculator */}
       <SimpleInterestCalculatorClient />
 
-      {/* Visible FAQ Section (Required for Rich Results) */}
-      <section className="max-w-3xl mx-auto mt-20 px-2">
+      {/* ======================
+         RELATED CALCULATORS
+      ====================== */}
+      <RelatedCalculators
+  items={[
+    {
+      title: "BMI Calculator",
+      description: "Check your Body Mass Index and health category.",
+      href: "/calculator/bmi-calculator",
+      color: "blue",
+    },
+    {
+      title: "Age Calculator",
+      description: "Calculate your exact age in years, months, and days.",
+      href: "/calculator/age-calculator",
+      color: "green",
+    },
+    {
+      title: "SIP Calculator",
+      description: "Estimate returns on your systematic investments.",
+      href: "/calculator/sip-calculator",
+      color: "purple",
+    },
+    {
+      title: "Compound Interest Calculator",
+      description: "Calculate compound interest growth over time.",
+      href: "/calculator/compound-interest-calculator",
+      color: "orange",
+    },
+    {
+      title: "Percentage Calculator",
+      description: "Quickly calculate percentages and differences.",
+      href: "/calculator/percentage-calculator",
+      color: "pink",
+    },
+    {
+      title: "Simple Interest Calculator",
+      description: "Calculate simple interest for loans or savings.",
+      href: "/calculator/simple-interest-calculator",
+      color: "indigo",
+    },
+  ]}
+/>
+
+      {/* ======================
+         FAQ SECTION
+      ====================== */}
+      <section className="max-w-3xl mx-auto mt-20 px-4">
         <h2 className="text-2xl font-semibold mb-8">
           Frequently Asked Questions
         </h2>

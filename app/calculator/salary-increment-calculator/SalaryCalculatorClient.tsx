@@ -1,5 +1,6 @@
 "use client";
 
+
 import { useState } from "react";
 
 export default function SalaryCalculatorClient() {
@@ -255,6 +256,7 @@ export default function SalaryCalculatorClient() {
   </p>
 </section>
 
+    
     
   </section>
 );

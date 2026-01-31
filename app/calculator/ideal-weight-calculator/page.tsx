@@ -1,109 +1,78 @@
 import { Metadata } from "next";
+import RelatedCalculators from "@/app/components/RelatedCalculators";
+
 import IdealWeightCalculatorClient from "./IdealWeightCalculatorClient";
 
+/* ======================
+   METADATA
+====================== */
 export const metadata: Metadata = {
-  title: "Ideal Weight Calculator | Find Your Healthy Weight – DailyCalcu",
+  title: "Ideal Weight Calculator | Healthy Weight for Men & Women – DailyCalcu",
   description:
-    "Use this free ideal weight calculator to estimate your healthy body weight based on height and gender using standard formulas.",
+    "Use this free ideal weight calculator to find your healthy body weight based on height and gender using trusted medical formulas.",
+  alternates: {
+    canonical: "https://dailycalcu.com/calculator/ideal-weight-calculator",
+  },
 };
 
-<section className="mt-12">
-  <h2 className="text-xl font-semibold mb-4">
-    Related Calculators
-  </h2>
-
-  <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-    <li>
-      <a href="/calculator/bmi-calculator" className="text-blue-600 hover:underline">
-        BMI Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/age-calculator" className="text-blue-600 hover:underline">
-        Age Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/sip-calculator" className="text-blue-600 hover:underline">
-        SIP Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/compound-interest-calculator" className="text-blue-600 hover:underline">
-        Compound Interest Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/percentage-calculator" className="text-blue-600 hover:underline">
-        Percentage Calculator
-      </a>
-    </li>
-    <li>
-      <a href="/calculator/simple-interest-calculator" className="text-blue-600 hover:underline">
-        Simple Interest Calculator
-      </a>
-    </li>
-  </ul>
-</section>
-
 /* ======================
-   FAQ DATA (10 QUESTIONS)
+   FAQ DATA
 ====================== */
 const faqs = [
   {
-    question: "What is an ideal weight?",
+    question: "What is ideal body weight?",
     answer:
-      "Ideal weight refers to a weight range that is considered healthy for a person based on factors like height, gender, and body structure.",
-  },
-  {
-    question: "How is ideal weight calculated?",
-    answer:
-      "Ideal weight is calculated using standard formulas such as the Devine, Hamwi, or Robinson formulas, which are based mainly on height and gender.",
+      "Ideal body weight is an estimated healthy weight based on height and gender using medical formulas.",
   },
   {
     question: "Is ideal weight the same as BMI?",
     answer:
-      "No, ideal weight and BMI are different. BMI considers both height and weight, while ideal weight focuses on estimating a healthy weight range.",
+      "No, BMI measures body fat using height and weight, while ideal weight estimates a healthy target weight.",
   },
   {
-    question: "Does ideal weight differ for men and women?",
+    question: "Which formula is most accurate?",
     answer:
-      "Yes, ideal weight calculations differ for men and women because of differences in body composition and muscle mass.",
+      "All formulas provide estimates. Doctors often consider multiple formulas together.",
   },
   {
-    question: "Is ideal weight the same for everyone of the same height?",
+    question: "Does ideal weight vary for men and women?",
     answer:
-      "No, ideal weight can vary depending on body frame size, muscle mass, and overall health, even for people of the same height.",
-  },
-  {
-    question: "Can this calculator help with weight loss goals?",
-    answer:
-      "Yes, this calculator can help you understand a healthy target weight, which may assist in planning weight loss or weight gain goals.",
-  },
-  {
-    question: "Is ideal weight a medical diagnosis?",
-    answer:
-      "No, ideal weight is an estimation and not a medical diagnosis. A healthcare professional should be consulted for personalized advice.",
+      "Yes, due to differences in muscle mass and body composition.",
   },
   {
     question: "Can athletes rely on ideal weight calculators?",
     answer:
-      "Athletes may not find ideal weight calculators fully accurate because they often have higher muscle mass than average.",
+      "Athletes may have higher muscle mass, so ideal weight formulas may underestimate healthy weight.",
   },
   {
-    question: "Is this ideal weight calculator accurate?",
+    question: "Is ideal weight medically exact?",
     answer:
-      "The calculator provides an estimate using standard formulas, but actual healthy weight may vary based on individual factors.",
+      "No, it is a guideline, not a medical diagnosis.",
   },
   {
-    question: "Is this ideal weight calculator free to use?",
+    question: "Can ideal weight help with weight loss?",
     answer:
-      "Yes, the ideal weight calculator on DailyCalcu is completely free and does not require registration.",
+      "Yes, it provides a healthy target range for planning weight goals.",
+  },
+  {
+    question: "Does age affect ideal weight?",
+    answer:
+      "Age can influence muscle mass and metabolism, but formulas mainly focus on height.",
+  },
+  {
+    question: "Is this calculator free?",
+    answer:
+      "Yes, DailyCalcu’s ideal weight calculator is completely free.",
+  },
+  {
+    question: "Should I consult a doctor?",
+    answer:
+      "Yes, especially if you have medical conditions or unique body composition.",
   },
 ];
 
 /* ======================
-   FAQ SCHEMA (JSON-LD)
+   FAQ SCHEMA
 ====================== */
 const faqSchema = {
   "@context": "https://schema.org",
@@ -121,7 +90,7 @@ const faqSchema = {
 export default function Page() {
   return (
     <>
-      {/* FAQ Structured Data for Google */}
+      {/* FAQ SCHEMA */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -129,11 +98,145 @@ export default function Page() {
         }}
       />
 
-      {/* Calculator UI */}
+      {/* CALCULATOR */}
       <IdealWeightCalculatorClient />
 
-      {/* Visible FAQ Section (Required for Rich Results) */}
-      <section className="max-w-3xl mx-auto mt-20 px-2">
+     {/* ======================
+   LONG SEO BLOG
+====================== */}
+<article className="max-w-4xl mx-auto mt-20 px-4 text-gray-800 leading-relaxed">
+  <h2 className="text-3xl font-bold mb-6">
+    What Is Ideal Weight and Why It Matters
+  </h2>
+
+  <p className="mb-5">
+    Ideal body weight refers to a healthy weight range based on your height
+    and gender. Understanding your ideal weight helps you evaluate whether
+    you are underweight, overweight, or maintaining a healthy balance.
+  </p>
+
+  <p className="mb-6">
+    Searches like <strong>ideal weight for my height</strong> and{" "}
+    <strong>healthy weight for men and women</strong> are common because
+    maintaining an appropriate weight significantly reduces the risk of
+    heart disease, diabetes, joint issues, and long-term lifestyle disorders.
+  </p>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    How Ideal Weight Is Calculated
+  </h3>
+
+  <p className="mb-5">
+    Ideal weight calculators rely on proven medical formulas such as the
+    <strong> Devine</strong>, <strong> Robinson</strong>, and{" "}
+    <strong> Miller</strong> formulas. These methods use height and gender
+    to estimate a healthy body weight range.
+  </p>
+
+  <p className="mb-6">
+    Doctors and nutritionists often consider multiple formulas together
+    instead of relying on just one, ensuring a more balanced assessment.
+  </p>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    Ideal Weight for Men and Women
+  </h3>
+
+  <p className="mb-6">
+    Ideal weight naturally differs between men and women due to differences
+    in muscle mass, bone density, and fat distribution. Men generally have
+    higher lean muscle mass, while women typically carry a higher essential
+    fat percentage.
+  </p>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    Ideal Weight vs BMI
+  </h3>
+
+  <p className="mb-6">
+    BMI (Body Mass Index) calculates body fat using height and weight, while
+    ideal weight estimates a target weight range. BMI is useful for
+    population-level screening, whereas ideal weight offers a more
+    personalized reference.
+  </p>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    Is Ideal Weight the Same for Everyone?
+  </h3>
+
+  <p className="mb-6">
+    No. Factors such as body frame size, genetics, muscle mass, age, and
+    lifestyle habits all influence what weight is healthiest for you.
+    That’s why ideal weight should be treated as guidance—not a strict rule.
+  </p>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    How to Maintain Your Ideal Weight
+  </h3>
+
+  <ul className="list-disc pl-6 space-y-2 mb-6">
+    <li>Eat a balanced diet rich in whole foods</li>
+    <li>Exercise regularly with strength and cardio training</li>
+    <li>Maintain consistent sleep and hydration</li>
+    <li>Track progress realistically over time</li>
+  </ul>
+
+  <h3 className="text-2xl font-semibold mt-10 mb-4">
+    Final Thoughts
+  </h3>
+
+  <p>
+    An ideal weight calculator is an excellent starting point for understanding
+    your health. Combine it with medical guidance, sustainable habits, and
+    long-term consistency to achieve lasting wellness.
+  </p>
+</article>
+
+<RelatedCalculators
+  items={[
+    {
+      title: "BMI Calculator",
+      description: "Check your Body Mass Index and health category.",
+      href: "/calculator/bmi-calculator",
+      color: "blue",
+    },
+    {
+      title: "Age Calculator",
+      description: "Calculate your exact age in years, months, and days.",
+      href: "/calculator/age-calculator",
+      color: "green",
+    },
+    {
+      title: "SIP Calculator",
+      description: "Estimate returns on your systematic investments.",
+      href: "/calculator/sip-calculator",
+      color: "purple",
+    },
+    {
+      title: "Compound Interest Calculator",
+      description: "Calculate compound interest growth over time.",
+      href: "/calculator/compound-interest-calculator",
+      color: "orange",
+    },
+    {
+      title: "Percentage Calculator",
+      description: "Quickly calculate percentages and differences.",
+      href: "/calculator/percentage-calculator",
+      color: "pink",
+    },
+    {
+      title: "Simple Interest Calculator",
+      description: "Calculate simple interest for loans or savings.",
+      href: "/calculator/simple-interest-calculator",
+      color: "indigo",
+    },
+  ]}
+/>
+
+      {/* ======================
+         FAQ SECTION
+      ====================== */}
+      <section className="max-w-3xl mx-auto mt-20 px-4">
         <h2 className="text-2xl font-semibold mb-8">
           Frequently Asked Questions
         </h2>
