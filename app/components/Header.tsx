@@ -35,10 +35,10 @@ export default function Header() {
             <Link href="/" className={linkClass("/")}>
               Home
             </Link>
-            <Link href="/about" className={linkClass("/about")}>
-  About
-</Link>
 
+            <Link href="/about" className={linkClass("/about")}>
+              About
+            </Link>
 
             <Link href="/calculator" className={linkClass("/calculator")}>
               Calculators
@@ -56,6 +56,11 @@ export default function Header() {
               className={linkClass("/calculator/age-calculator")}
             >
               Age
+            </Link>
+
+            {/* ✅ NEW: CONTACT */}
+            <Link href="/contact" className={linkClass("/contact")}>
+              Contact
             </Link>
           </nav>
 
@@ -81,14 +86,14 @@ export default function Header() {
             >
               Home
             </Link>
-            <Link
-  href="/about"
-  className={linkClass("/about")}
-  onClick={() => setOpen(false)}
->
-  About
-</Link>
 
+            <Link
+              href="/about"
+              className={linkClass("/about")}
+              onClick={() => setOpen(false)}
+            >
+              About
+            </Link>
 
             <Link
               href="/calculator"
@@ -112,6 +117,15 @@ export default function Header() {
               onClick={() => setOpen(false)}
             >
               Age Calculator
+            </Link>
+
+            {/* ✅ NEW: CONTACT (mobile) */}
+            <Link
+              href="/contact"
+              className={linkClass("/contact")}
+              onClick={() => setOpen(false)}
+            >
+              Contact
             </Link>
           </nav>
         </div>
