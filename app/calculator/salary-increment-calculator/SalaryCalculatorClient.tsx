@@ -100,101 +100,41 @@ export default function SalaryCalculatorClient() {
         </div>
       </div>
     </div>
-<section className="mb-6">
-  <h1 className="text-3xl font-semibold mb-3">
-    Salary Increment Calculator
-  </h1>
 
-  <p className="text-gray-700 mb-3">
-    A salary increment is an increase in your existing salary, usually given
-    during annual appraisals or performance reviews. Knowing how much your new
-    salary will be after an increment helps you plan your finances, savings,
-    and future expenses better.
-  </p>
-
-  <p className="text-gray-700 mb-3">
-    This salary increment calculator allows you to quickly calculate your
-    updated salary by entering your current salary and the expected increment
-    percentage. The calculator instantly shows your increment amount and your
-    new salary after the hike.
-  </p>
-
-  <p className="text-gray-700">
-    Whether you are evaluating a job offer, preparing for an appraisal
-    discussion, or simply curious about how a percentage increase affects your
-    income, this free tool gives accurate results without any registration.
-  </p>
-</section>
-
-    {/* SEO Content */}
-    <article className="prose max-w-none">
-      <h2>How does salary increment work?</h2>
-      <p>
-        A salary increment is an increase in your existing salary, usually
-        expressed as a percentage. Employers often provide annual salary hikes
-        based on performance, company growth, or inflation.
-      </p>
-
-      <h3>Formula used</h3>
-      <p>
-        <strong>Increment Amount</strong> = Current Salary × (Increment % ÷ 100)
-      </p>
-      <p>
-        <strong>New Salary</strong> = Current Salary + Increment Amount
-      </p>
-    </article>
 <section className="mb-10 mt-8">
   <h1 className="text-3xl font-semibold mb-4">
     Salary Increment Calculator
   </h1>
 
   <p className="text-gray-700 mb-4">
-    A salary increment is an increase in an employee’s existing salary, usually
-    offered during annual appraisals, promotions, or performance reviews.
-    Understanding how much your salary will increase after an increment helps
-    you plan your monthly budget, savings goals, investments, and lifestyle
-    expenses more effectively.
+    A salary increment, as the name suggests is normally an permanent increase in an employee’s existing salary, 
+    that is normally offered during annual appraisals or promotions in the form of percentage.
+    After understanding how much your salary will increase after an increment can help
+    you in your  future plans of monthly budget, savings, investments etc efficiently.
   </p>
 
   <p className="text-gray-700 mb-4">
-    This salary increment calculator is designed to help you quickly calculate
-    your updated salary after applying a percentage increase. By entering your
-    current salary and the expected increment percentage, you can instantly see
+    This salary increment calculator can help you quickly calculate
+    your updated salary after applying a percentage increase. You can enter your
+    current salary and the expected increment percentage provided by your company, you can instantly see
     your increment amount and your new salary without doing any manual
     calculations.
   </p>
 
   <p className="text-gray-700 mb-6">
-    Whether you are preparing for a salary appraisal, evaluating a new job
-    offer, or simply curious about how a percentage hike impacts your income,
-    this calculator provides accurate and instant results for both monthly and
-    yearly salaries.
+    if you are planning according to your future salary appraisal, looking for a new job
+    offer, or simply want to know about how a percentage hike affects your income,
+    this calculator provides accurate and instant results for your salary increment.  
   </p>
 
-  <h2 className="text-2xl font-semibold mb-3">
-    What Is a Salary Increment?
-  </h2>
-
-  <p className="text-gray-700 mb-4">
-    A salary increment refers to an increase in an employee’s base pay. It is
-    commonly given once a year but may also occur during promotions, role
-    changes, or company-wide salary revisions. Salary increments are usually
-    expressed as a percentage of the current salary.
-  </p>
-
-  <p className="text-gray-700 mb-6">
-    For example, if your current monthly salary is ₹30,000 and you receive a
-    10% increment, your salary increase will be ₹3,000, making your new monthly
-    salary ₹33,000. Calculating this manually for different percentages can be
-    time-consuming, which is why using a salary increment calculator is helpful.
-  </p>
-
+  
+ 
   <h2 className="text-2xl font-semibold mb-3">
     How to Calculate Salary Increment
   </h2>
 
   <p className="text-gray-700 mb-4">
-    The formula to calculate salary increment is simple:
+    You can find the formula to calculate salary increment below:
   </p>
 
   <p className="text-gray-700 font-medium mb-4">
@@ -206,10 +146,17 @@ export default function SalaryCalculatorClient() {
   </p>
 
   <p className="text-gray-700 mb-6">
-    While the formula is straightforward, calculating increments repeatedly for
-    different scenarios can be inconvenient. This calculator automates the
+    This formula is very simple, it calculates increments repeatedly for
+    different scenarios while being very inconvenient. This calculator automates the
     process and eliminates calculation errors.
   </p>
+   <p className="text-gray-700 mb-6">
+    For example, if your current monthly salary is ₹30,000 and you receive a
+    10% increment, your salary increase will be ₹3,000, making your new monthly
+    salary ₹33,000. Calculating this manually for different percentages can be
+    time-consuming, which is why we have made this salary increment calculator.
+  </p>
+
 
   <h2 className="text-2xl font-semibold mb-3">
     Why Use a Salary Increment Calculator?
@@ -228,30 +175,26 @@ export default function SalaryCalculatorClient() {
   </h2>
 
   <p className="text-gray-700 mb-4">
-    You can use this calculator for both monthly and yearly salary values. If
+    You can use this calculator for both monthly and yearly salary increment calculations. If
     you enter your monthly salary, the result will be your updated monthly
-    salary. If you enter your annual salary, the calculator will give your new
-    annual salary after the increment.
+    salary. You have to enter your annual salary and the calculator will give your new
+    annual salary after the increment, it will also show you the incremented amount.
   </p>
 
-  <p className="text-gray-700 mb-6">
-    Make sure the increment percentage applies to the same time period as your
-    salary input to get accurate results.
-  </p>
-
+  
   <h2 className="text-2xl font-semibold mb-3">
     Who Can Use This Calculator?
   </h2>
 
   <p className="text-gray-700 mb-4">
     This salary increment calculator is useful for employees, job seekers, HR
-    professionals, and anyone who wants to understand how a salary hike affects
-    income. It is especially helpful during appraisal seasons or when comparing
+    professionals, and anyone who wants to understand how a salary hike affects the
+    income. It is usually helpful during appraisal seasons or when comparing
     multiple job offers.
   </p>
 
   <p className="text-gray-700">
-    The calculator is completely free to use, works instantly, and does not
+    The calculator is completely free to use, works quickly, and does not
     require any registration or personal information.
   </p>
 </section>
