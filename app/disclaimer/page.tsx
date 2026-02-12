@@ -4,7 +4,10 @@ export const metadata: Metadata = {
   title: "Disclaimer | DailyCalcu",
   description:
     "Read the disclaimer for DailyCalcu regarding calculator accuracy and informational use.",
-};
+alternates: {
+    canonical: "/disclaimer",
+  },
+  };
 
 export default function DisclaimerPage() {
   return (

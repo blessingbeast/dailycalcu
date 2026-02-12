@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Use this free calorie deficit calculator to estimate how many calories you should eat to lose weight safely based on your daily calorie needs.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/calorie-deficit-calculator",
+    canonical: "/calorie-deficit-calculator",
   },
 };
 

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description:
     "Use this free date difference calculator to calculate the exact difference between two dates in days, weeks, months, and years.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/date-difference-calculator",
+    canonical: "/date-difference-calculator",
   },
 };
 

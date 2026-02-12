@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Use this free compound interest calculator to calculate interest on investments or savings and estimate future value accurately.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/compound-interest-calculator",
+    canonical: "/compound-interest-calculator",
   },
 };
 

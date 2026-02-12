@@ -5,7 +5,10 @@ export const metadata: Metadata = {
   title: "BMR & Daily Calorie Calculator | Calculate Calories – DailyCalcu",
   description:
     "Use this free BMR and calorie calculator to estimate your basal metabolic rate and daily calorie needs based on age, height, weight, and activity level.",
-};
+alternates: {
+    canonical: "/bmr-calculator",
+  },
+  };
 function CalculatorCard({
   title,
   description,

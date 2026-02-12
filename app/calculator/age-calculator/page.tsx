@@ -10,7 +10,7 @@ export const metadata: Metadata = {
   description:
     "Use this free age calculator to calculate your exact age in years, months, and days based on your date of birth.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/age-calculator",
+    canonical: "/age-calculator",
   },
 };
 

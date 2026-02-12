@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   title: "BMI Calculator | Body Mass Index Calculator – DailyCalcu",
   description:
     "Use this free BMI calculator to calculate your Body Mass Index based on height and weight. Check if you are underweight, normal, overweight, or obese.",
-};
+    alternates: {
+    canonical: "/bmi-calculator",
+  },
+  };
 
 /* ======================
    FAQ DATA (10 QUESTIONS)

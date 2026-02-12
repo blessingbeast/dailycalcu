@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Use this free ideal weight calculator to find your healthy body weight based on height and gender using trusted medical formulas.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/ideal-weight-calculator",
+    canonical: "/ideal-weight-calculator",
   },
 };
 

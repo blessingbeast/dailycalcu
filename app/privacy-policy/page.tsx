@@ -4,7 +4,10 @@ export const metadata: Metadata = {
   title: "Privacy Policy | DailyCalcu",
   description:
     "Read the privacy policy of DailyCalcu to understand how we handle user data and cookies.",
-};
+alternates: {
+    canonical: "/privacy-policy",
+  },
+  };
 
 export default function PrivacyPolicyPage() {
   return (

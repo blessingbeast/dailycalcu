@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   description:
     "Use this free simple interest calculator to calculate interest and total amount based on principal, rate of interest, and time period.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/simple-interest-calculator",
+    canonical: "/simple-interest-calculator",
   },
 };
 

@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   title: "Salary Increment Calculator | Calculate New Salary – DailyCalcu",
   description:
     "Use this free salary increment calculator to calculate your new salary after applying an increment percentage. Simple, fast, and accurate.",
-};
-
-
-
+alternates: {
+    canonical: "/salary-increment-calculator",
+  },
+  };
 
 
 /* ======================

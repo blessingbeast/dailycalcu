@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Use this free percentage calculator to calculate percentage of a number, percentage increase, decrease, and percentage change accurately.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/percentage-calculator",
+    canonical: "/percentage-calculator",
   },
 };
 

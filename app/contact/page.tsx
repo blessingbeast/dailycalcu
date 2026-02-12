@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   description:
     "Contact DailyCalcu for questions, feedback, or suggestions about our free online calculators.",
   alternates: {
-    canonical: "https://dailycalcu.com/contact",
+    canonical: "/contact",
   },
 };
 

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Learn more about DailyCalcu — a free online calculator platform offering fast, accurate, and easy-to-use calculators for finance, health, age, percentages, and more.",
   alternates: {
-    canonical: "https://dailycalcu.com/about",
+    canonical: "/about",
   },
 };
 

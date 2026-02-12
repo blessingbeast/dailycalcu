@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Use this free PPF calculator to calculate Public Provident Fund maturity amount, interest earned, and total investment value with charts and detailed breakdown.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/ppf-calculator",
+    canonical: "/ppf-calculator",
   },
 };
 

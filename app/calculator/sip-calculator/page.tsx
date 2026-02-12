@@ -7,7 +7,10 @@ export const metadata: Metadata = {
   title: "SIP Calculator | Calculate SIP Returns & Maturity – DailyCalcu",
   description:
     "Use this free SIP calculator to estimate mutual fund SIP returns, total investment, and maturity amount easily and accurately.",
-};
+alternates: {
+    canonical: "/sip-calculator",
+  },
+  };
 
 
 

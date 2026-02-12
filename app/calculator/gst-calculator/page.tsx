@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     "Use this free GST calculator to add or remove GST and calculate GST amount, GST inclusive price, and GST exclusive price instantly.",
   alternates: {
-    canonical: "https://dailycalcu.com/calculator/gst-calculator",
+    canonical: "/gst-calculator",
   },
 };
 
