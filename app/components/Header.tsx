@@ -58,6 +58,9 @@ export default function Header() {
               Age
             </Link>
 
+<Link href="/blog">
+  Insights
+</Link>
             {/* ✅ NEW: CONTACT */}
             <Link href="/contact" className={linkClass("/contact")}>
               Contact

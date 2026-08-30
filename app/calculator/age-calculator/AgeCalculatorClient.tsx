@@ -2,113 +2,482 @@
 
 import { useState } from "react";
 
-export default function AgeCalculatorClient() {
-  const [dob, setDob] = useState("");
+/* =======================
+   TYPES
+======================= */
 
-  const calculateAge = () => {
-    if (!dob) return null;
+type AgeResult = {
+  years: number;
+  months: number;
+  days: number;
+  totalMonths: number;
+  totalWeeks: number;
+  totalDays: number;
+};
 
-    const birthDate = new Date(dob);
-    const today = new Date();
+/* =======================
+   DATE HELPERS
+======================= */
 
-    let years = today.getFullYear() - birthDate.getFullYear();
-    let months = today.getMonth() - birthDate.getMonth();
-    let days = today.getDate() - birthDate.getDate();
+function parseDate(value: string) {
+  const [year, month, day] = value.split("-").map(Number);
 
-    if (days < 0) {
-      months--;
-      days += new Date(
-        today.getFullYear(),
-        today.getMonth(),
+  if (!year || !month || !day) return null;
+
+  return new Date(Date.UTC(year, month - 1, day));
+}
+
+function formatDate(date: Date) {
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+}
+
+function getTodayString() {
+  return formatDate(new Date());
+}
+
+function isLeapYear(year: number) {
+  return (
+    year % 4 === 0 &&
+    (year % 100 !== 0 || year % 400 === 0)
+  );
+}
+
+/*
+  For a Feb 29 birthday in a non-leap year,
+  we use February 28 as the anniversary date.
+*/
+function getAnniversaryDate(
+  birthYear: number,
+  birthMonth: number,
+  birthDay: number,
+  targetYear: number
+) {
+  if (
+    birthMonth === 2 &&
+    birthDay === 29 &&
+    !isLeapYear(targetYear)
+  ) {
+    return new Date(Date.UTC(targetYear, 1, 28));
+  }
+
+  return new Date(
+    Date.UTC(targetYear, birthMonth - 1, birthDay)
+  );
+}
+
+/* =======================
+   AGE CALCULATION
+======================= */
+
+function calculateAge(
+  dobValue: string,
+  referenceValue: string
+): AgeResult | null {
+  const birthDate = parseDate(dobValue);
+  const referenceDate = parseDate(referenceValue);
+
+  if (!birthDate || !referenceDate) {
+    return null;
+  }
+
+  if (birthDate > referenceDate) {
+    return null;
+  }
+
+  const birthYear = birthDate.getUTCFullYear();
+  const birthMonth = birthDate.getUTCMonth() + 1;
+  const birthDay = birthDate.getUTCDate();
+
+  const referenceYear = referenceDate.getUTCFullYear();
+  const referenceMonth = referenceDate.getUTCMonth() + 1;
+  const referenceDay = referenceDate.getUTCDate();
+
+  let years = referenceYear - birthYear;
+
+  const anniversary = getAnniversaryDate(
+    birthYear,
+    birthMonth,
+    birthDay,
+    referenceYear
+  );
+
+  if (anniversary > referenceDate) {
+    years--;
+  }
+
+  const anniversaryAfterYears = getAnniversaryDate(
+    birthYear,
+    birthMonth,
+    birthDay,
+    birthYear + years
+  );
+
+  let months =
+    referenceMonth -
+    (anniversaryAfterYears.getUTCMonth() + 1);
+
+  let days =
+    referenceDay -
+    anniversaryAfterYears.getUTCDate();
+
+  if (days < 0) {
+    months--;
+
+    const previousMonthDate = new Date(
+      Date.UTC(
+        referenceDate.getUTCFullYear(),
+        referenceDate.getUTCMonth(),
         0
-      ).getDate();
-    }
-
-    if (months < 0) {
-      years--;
-      months += 12;
-    }
-
-    const totalMonths = years * 12 + months;
-    const totalDays = Math.floor(
-      (today.getTime() - birthDate.getTime()) / (1000 * 60 * 60 * 24)
+      )
     );
 
-    return { years, months, days, totalMonths, totalDays };
-  };
+    days += previousMonthDate.getUTCDate();
+  }
 
-  const result = calculateAge();
+  if (months < 0) {
+    months += 12;
+  }
+
+  const totalMilliseconds =
+    referenceDate.getTime() - birthDate.getTime();
+
+  const totalDays = Math.floor(
+    totalMilliseconds / (1000 * 60 * 60 * 24)
+  );
+
+  const totalWeeks = Math.floor(totalDays / 7);
+
+  const totalMonths = years * 12 + months;
+
+  return {
+    years,
+    months,
+    days,
+    totalMonths,
+    totalWeeks,
+    totalDays,
+  };
+}
+
+/* =======================
+   RESULT CARD
+======================= */
+
+function ResultCard({
+  label,
+  value,
+}: {
+  label: string;
+  value: number;
+}) {
+  return (
+    <div className="border rounded-lg p-4 text-center bg-blue-50 border-blue-200">
+      <p className="text-sm text-gray-600">
+        {label}
+      </p>
+
+      <p className="text-2xl font-bold text-blue-700">
+        {value.toLocaleString()}
+      </p>
+    </div>
+  );
+}
+
+/* =======================
+   PROGRESS BAR
+======================= */
+
+function ProgressBar({
+  label,
+  value,
+}: {
+  label: string;
+  value: number;
+}) {
+  return (
+    <div className="mb-5">
+      <div className="flex justify-between text-sm text-gray-600 mb-1">
+        <span>{label}</span>
+        <span>{value.toFixed(1)}%</span>
+      </div>
+
+      <div className="w-full bg-gray-200 rounded-full h-3">
+        <div
+          className="bg-blue-600 h-3 rounded-full"
+          style={{
+            width: `${value}%`,
+          }}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* =======================
+   MAIN COMPONENT
+======================= */
+
+export default function AgeCalculatorClient() {
+  const today = getTodayString();
+
+  const [dob, setDob] = useState("");
+  const [referenceDate, setReferenceDate] =
+    useState(today);
+
+  const [error, setError] = useState("");
+
+  const result = dob
+    ? calculateAge(dob, referenceDate)
+    : null;
 
   /* =======================
-     DYNAMIC PROGRESS LOGIC
+     LIFESPAN PROGRESS
   ======================= */
-  const EXPECTED_LIFESPAN = 80;
-<p className="text-xs text-gray-400 mt-1">
-  Based on a global average life expectancy of ~80 years.
-</p>
-  const lifeProgress = result
-    ? Math.min((result.years / EXPECTED_LIFESPAN) * 100, 100)
-    : 0;
 
-  const monthProgress = result
+  const EXPECTED_LIFESPAN = 80;
+
+  const lifeProgress = result
     ? Math.min(
-        (result.totalMonths / (EXPECTED_LIFESPAN * 12)) * 100,
+        (result.years / EXPECTED_LIFESPAN) * 100,
         100
       )
     : 0;
 
-  const AVERAGE_YEAR_DAYS = 365.25;
+  const monthProgress = result
+    ? Math.min(
+        (result.totalMonths /
+          (EXPECTED_LIFESPAN * 12)) *
+          100,
+        100
+      )
+    : 0;
 
-const dayProgress = result
-  ? Math.min(
-      (result.totalDays / (EXPECTED_LIFESPAN * AVERAGE_YEAR_DAYS)) * 100,
-      100
-    )
-  : 0;
+  const dayProgress = result
+    ? Math.min(
+        (result.totalDays /
+          (EXPECTED_LIFESPAN * 365.2425)) *
+          100,
+        100
+      )
+    : 0;
+
+  /* =======================
+     HANDLE CALCULATION
+  ======================= */
+
+  const handleCalculate = () => {
+    if (!dob) {
+      setError("Please enter your date of birth.");
+      return;
+    }
+
+    if (!referenceDate) {
+      setError("Please select a reference date.");
+      return;
+    }
+
+    const birthDate = parseDate(dob);
+    const refDate = parseDate(referenceDate);
+
+    if (!birthDate || !refDate) {
+      setError("Please enter valid dates.");
+      return;
+    }
+
+    if (birthDate > refDate) {
+      setError(
+        "Date of birth cannot be after the reference date."
+      );
+      return;
+    }
+
+    setError("");
+  };
+
+  const handleToday = () => {
+    setReferenceDate(getTodayString());
+    setError("");
+  };
 
   return (
     <section className="max-w-2xl mx-auto">
 
-      {/* HEADER */}
+      {/* =======================
+          HEADER
+      ======================= */}
+
       <header className="mb-8 text-center mt-5">
         <h1 className="text-4xl font-bold mb-3">
           Age Calculator
         </h1>
+
         <p className="text-gray-600">
           Calculate your exact age in years, months, and days
         </p>
       </header>
 
-      {/* INPUT */}
-      <div className="bg-white shadow-lg rounded-xl p-6 mb-10">
-        <label className="block font-medium mb-2">
-          Date of Birth
-        </label>
-        <input
-          type="date"
-          className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={dob}
-          onChange={(e) => setDob(e.target.value)}
-        />
+      {/* =======================
+          CALCULATOR
+      ======================= */}
 
-        {/* RESULT CARDS */}
-        {result && (
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
-            <ResultCard label="Years" value={result.years} color="blue" />
-            <ResultCard label="Months" value={result.totalMonths} color="green" />
-            <ResultCard label="Days" value={result.totalDays} color="purple" />
+      <div className="bg-white shadow-lg rounded-xl p-6 mb-10">
+
+        {/* DATE OF BIRTH */}
+
+        <div className="mb-6">
+          <label
+            htmlFor="dob"
+            className="block font-medium mb-2"
+          >
+            Date of Birth
+          </label>
+
+          <input
+            id="dob"
+            type="date"
+            value={dob}
+            onChange={(e) => {
+              setDob(e.target.value);
+              setError("");
+            }}
+            className="w-full border rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* REFERENCE DATE */}
+
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <label
+              htmlFor="referenceDate"
+              className="block font-medium"
+            >
+              Calculate Age On
+            </label>
+
+            <button
+              type="button"
+              onClick={handleToday}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Use Today
+            </button>
+          </div>
+
+          <input
+            id="referenceDate"
+            type="date"
+            value={referenceDate}
+            onChange={(e) => {
+              setReferenceDate(e.target.value);
+              setError("");
+            }}
+            className="w-full border rounded-lg px-3 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+
+          <p className="text-sm text-gray-500 mt-2">
+            Choose any past, present, or future date.
+          </p>
+        </div>
+
+        {/* ERROR */}
+
+        {error && (
+          <p className="text-red-600 text-sm mb-4">
+            {error}
+          </p>
+        )}
+
+        {/* BUTTON */}
+
+        <button
+          type="button"
+          onClick={handleCalculate}
+          className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg hover:bg-blue-700 transition"
+        >
+          Calculate Age
+        </button>
+
+        {/* =======================
+            RESULT
+        ======================= */}
+
+        {result && !error && (
+          <div className="mt-8">
+
+            <h2 className="text-2xl font-bold mb-4">
+              Your Exact Age
+            </h2>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <ResultCard
+                label="Years"
+                value={result.years}
+              />
+
+              <ResultCard
+                label="Months"
+                value={result.months}
+              />
+
+              <ResultCard
+                label="Days"
+                value={result.days}
+              />
+            </div>
+
+            {/* TOTAL UNITS */}
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-gray-600">
+                  Total Months
+                </p>
+
+                <p className="text-xl font-semibold">
+                  {result.totalMonths.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-gray-600">
+                  Total Weeks
+                </p>
+
+                <p className="text-xl font-semibold">
+                  {result.totalWeeks.toLocaleString()}
+                </p>
+              </div>
+
+              <div className="border rounded-lg p-4">
+                <p className="text-sm text-gray-600">
+                  Total Days
+                </p>
+
+                <p className="text-xl font-semibold">
+                  {result.totalDays.toLocaleString()}
+                </p>
+              </div>
+
+            </div>
+
           </div>
         )}
+
       </div>
 
-   
-
-
       {/* =======================
-         LIFE TIMELINE
+          LIFE TIMELINE
       ======================= */}
-      {result && (
+
+      {result && !error && (
         <section className="mt-16">
+
           <h2 className="text-2xl font-bold mb-4">
             Your Life Timeline
           </h2>
@@ -116,242 +485,285 @@ const dayProgress = result
           <div className="w-full bg-gray-200 rounded-full h-4">
             <div
               className="bg-blue-600 h-4 rounded-full"
-              style={{ width: `${lifeProgress}%` }}
+              style={{
+                width: `${lifeProgress}%`,
+              }}
             />
           </div>
 
           <p className="text-sm text-gray-500 mt-2">
             You have lived approximately{" "}
-            <strong>{lifeProgress.toFixed(1)}%</strong> of an average
-            80-year lifespan.
+            <strong>
+              {lifeProgress.toFixed(1)}%
+            </strong>{" "}
+            of an average 80-year lifespan.
           </p>
+
         </section>
       )}
 
       {/* =======================
-         LIFE PROGRESS CHART
+          LIFE PROGRESS
       ======================= */}
-      {result && (
+
+      {result && !error && (
         <section className="mt-16">
+
           <h2 className="text-2xl font-bold mb-6">
             Life Progress Overview
           </h2>
 
-          <ProgressBar label="Years Lived" value={lifeProgress} color="bg-blue-600" />
-          <ProgressBar label="Months Lived" value={monthProgress} color="bg-green-600" />
-          <ProgressBar label="Days Lived" value={dayProgress} color="bg-purple-600" />
+          <ProgressBar
+            label="Years Lived"
+            value={lifeProgress}
+          />
+
+          <ProgressBar
+            label="Months Lived"
+            value={monthProgress}
+          />
+
+          <ProgressBar
+            label="Days Lived"
+            value={dayProgress}
+          />
+
         </section>
       )}
 
       {/* =======================
-         WHY DAILY CALCU
+          WHY DAILY CALCU
       ======================= */}
+
       <section className="mt-16">
+
         <h2 className="text-2xl font-bold mb-4">
           Why Choose DailyCalcu’s Age Calculator?
         </h2>
 
-        <ul className="list-disc ml-6 text-gray-700">
-          <li>100% accurate calculations</li>
-          <li>Handles leap years correctly</li>
-          <li>Mobile and desktop friendly</li>
-          <li>No registration required</li>
-          <li>Completely free to use</li>
+        <ul className="list-disc ml-6 text-gray-700 space-y-2">
+          <li>
+            Calculate exact age in years, months, and days
+          </li>
+
+          <li>
+            Calculate age on any specific date
+          </li>
+
+          <li>
+            Handles leap years and different month lengths
+          </li>
+
+          <li>
+            Shows total age in months, weeks, and days
+          </li>
+
+          <li>
+            Mobile and desktop friendly
+          </li>
+
+          <li>
+            No registration required
+          </li>
+
+          <li>
+            Completely free to use
+          </li>
         </ul>
+
       </section>
 
-   {/* =======================
-         SEO CONTENT
+      {/* =======================
+          SEO CONTENT
       ======================= */}
-     {/* =======================
-   LONG-FORM SEO BLOG
-======================= */}
-<article className="prose max-w-none mt-8">
 
-  <h2 className="text-2xl font-bold mb-4">What Is an Age Calculator?</h2>
-  <p>
-    An age calculator is an online tool that determines your exact age based on
-    your date of birth and a reference date, usually the current date. Unlike
-    simple age calculations that only show years, an advanced age calculator
-    provides a detailed breakdown in years, months, and days.
-  </p>
+      <article className="prose max-w-none mt-10">
 
-  <p>
-    The DailyCalcu Age Calculator is designed to deliver accurate, instant
-    results while accounting for leap years, varying month lengths, and calendar
-    differences. This makes it far more reliable than manual age calculations.
-  </p>
+        <h2 className="text-2xl font-bold mb-4">
+          What Is an Age Calculator?
+        </h2>
 
-  <h2 className="text-2xl font-bold mt-4">How Does the Age Calculator Work?</h2>
-  <p>
-    The calculator compares your date of birth with today’s date. It subtracts
-    the birth year from the current year, adjusts the months if your birthday
-    has not yet occurred, and calculates the remaining days accurately.
-  </p>
+        <p>
+          An age calculator is an online tool that
+          calculates a person's age from their date of
+          birth. Instead of manually counting years,
+          months, and days, an age calculator performs the
+          calculation automatically.
+        </p>
 
-  <p>
-    This process ensures precise age calculation even in complex cases such as
-    leap years or when the current month has fewer days than the birth month.
-  </p>
+        <p>
+          DailyCalcu's Age Calculator can calculate your
+          exact age in years, months, and days. You can also
+          choose a specific reference date to find out how
+          old you were or will be on that date.
+        </p>
 
-  <h2 className="text-2xl font-bold mt-4">Why Use an Online Age Calculator?</h2>
-  <ul className="list-disc ml-6 text-gray-700">
-    <li>Eliminates errors from manual calculations</li>
-    <li>Provides instant and precise results</li>
-    <li>Useful for official and legal documentation</li>
-    <li>Works for past, present, and future dates</li>
-    <li>No signup or personal data required</li>
-  </ul>
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          How Does the Age Calculator Work?
+        </h2>
 
-  <h2 className="text-2xl font-bold mt-4">Real-Life Uses of an Age Calculator</h2>
-  <p>
-    Age calculators are widely used in daily life and official scenarios. Some
-    of the most common use cases include:
-  </p>
+        <p>
+          The calculator compares your date of birth with
+          the date you select in the "Calculate Age On"
+          field. It then calculates the difference between
+          the two dates in years, months, and days.
+        </p>
 
-  <ul className="list-disc ml-6 text-gray-700">
-    <li>School and college admissions</li>
-    <li>Job eligibility and retirement planning</li>
-    <li>Medical records and pediatric tracking</li>
-    <li>Insurance and financial planning</li>
-    <li>Government forms and legal documentation</li>
-  </ul>
+        <p>
+          The calculation takes calendar differences into
+          account, including different month lengths and
+          leap years. This makes it more useful than simply
+          subtracting one year from another.
+        </p>
 
-  <h2 className="text-2xl font-bold mt-4">Age Calculation Example</h2>
-  <p>
-    Suppose your date of birth is <strong>15 March 1995</strong> and today’s date
-    is <strong>25 January 2026</strong>.
-  </p>
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          How to Calculate Your Age
+        </h2>
 
-  <p>
-    Using the age calculator, your age would be calculated as:
-  </p>
+        <ol className="list-decimal ml-6">
+          <li>
+            Enter your date of birth.
+          </li>
 
-  <ul className="list-disc ml-6 text-gray-700">
-    <li>30 years</li>
-    <li>370 total months</li>
-    <li>More than 11,000 days lived</li>
-  </ul>
+          <li>
+            Select the date on which you want to calculate
+            your age.
+          </li>
 
-  <p>
-    Performing this calculation manually would be time-consuming and prone to
-    errors, especially when accounting for leap years. The calculator handles
-    everything instantly.
-  </p>
+          <li>
+            Click "Calculate Age."
+          </li>
 
-  <h2 className="text-2xl font-bold mt-4">Understanding Age in Different Units</h2>
-  <p>
-    Age can be expressed in various units depending on the requirement. While
-    years are commonly used for identification and legal purposes, months and
-    days provide more precise measurements.
-  </p>
+          <li>
+            View your exact age in years, months, and days.
+          </li>
+        </ol>
 
-  <h3 className="text-xl font-bold mt-4">Age in Years</h3>
-  <p>
-    This is the most commonly used form of age representation and is typically
-    required for official records and documents.
-  </p>
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Calculate Age on a Specific Date
+        </h2>
 
-  <h3 className="text-xl font-bold mt-4">Age in Months</h3>
-  <p>
-    Measuring age in months is especially useful for infants, toddlers, and
-    medical assessments where precise growth tracking is required.
-  </p>
+        <p>
+          Sometimes you may need to know how old you were
+          on a particular date rather than today. For
+          example, you might want to calculate your age on
+          a past date, an upcoming birthday, an application
+          deadline, or another important date.
+        </p>
 
-  <h3 className="text-xl font-bold mt-4">Age in Days</h3>
-  <p>
-    Age in days is often used in medical, scientific, and research contexts
-    where exact timelines matter.
-  </p>
+        <p>
+          Enter your date of birth and select the desired
+          reference date. The calculator will calculate the
+          age for that exact date.
+        </p>
 
-  <h2 className="text-xl font-bold mt-4">Does the Age Calculator Handle Leap Years?</h2>
-  <p>
-    Yes. Leap years add an extra day in February, which can affect age
-    calculations. The DailyCalcu Age Calculator automatically accounts for leap
-    years, ensuring that results remain accurate regardless of birth year.
-  </p>
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Age in Years, Months, Weeks, and Days
+        </h2>
 
-  <h2 className="text-xl font-bold mt-4"> Can You Calculate Age for a Future Date?</h2>
-  <p>
-    Yes, age calculators can be used to calculate age for future dates. This is
-    useful for planning retirement, checking eligibility for exams or jobs, and
-    estimating future milestones.
-  </p>
+        <p>
+          Age is normally expressed in years, but sometimes
+          a more detailed measurement is useful. DailyCalcu
+          provides the exact years, months, and days
+          breakdown as well as total months, total weeks,
+          and total days.
+        </p>
 
-  <h2 className="text-xl font-bold mt-4">Is This Age Calculator Accurate?</h2>
-  <p>
-    The calculator uses standard date arithmetic and real calendar logic,
-    making it highly accurate for everyday and professional use. However, for
-    legal or official documents, age should always be verified against official
-    records.
-  </p>
+        <h3 className="text-xl font-bold mt-6 mb-3">
+          Age in Years
+        </h3>
 
-  <h2 className="text-xl font-bold mt-4">Why Use DailyCalcu’s Age Calculator?</h2>
-  <p>
-    DailyCalcu’s Age Calculator stands out by offering detailed breakdowns,
-    dynamic visual timelines, and a clean user interface without unnecessary
-    distractions.
-  </p>
+        <p>
+          Years are the standard way of describing a
+          person's age and are commonly used for everyday,
+          administrative, and legal purposes.
+        </p>
 
-  <ul className="list-disc ml-6 text-gray-700">
-    <li>Accurate age calculation</li>
-    <li>Dynamic visual progress charts</li>
-    <li>Mobile-friendly design</li>
-    <li>No registration required</li>
-    <li>Completely free to use</li>
-  </ul>
+        <h3 className="text-xl font-bold mt-6 mb-3">
+          Age in Months
+        </h3>
 
-</article>
+        <p>
+          Total months can be useful when a more detailed
+          age measurement is required, especially for young
+          children and infants.
+        </p>
+
+        <h3 className="text-xl font-bold mt-6 mb-3">
+          Age in Days
+        </h3>
+
+        <p>
+          Total days provide a precise measurement of the
+          number of complete days between the date of birth
+          and the selected reference date.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Does the Age Calculator Handle Leap Years?
+        </h2>
+
+        <p>
+          Yes. The calculator accounts for leap years when
+          calculating the difference between dates. This is
+          important because leap years contain an additional
+          day in February.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Can I Calculate Age for a Future Date?
+        </h2>
+
+        <p>
+          Yes. You can select a future reference date to
+          calculate how old you will be on that date. This
+          can be useful when checking age at a future
+          birthday, eligibility date, or other milestone.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Can I Calculate My Age on a Past Date?
+        </h2>
+
+        <p>
+          Yes. Select any valid date after your date of
+          birth as the reference date. The calculator will
+          determine your age on that particular date.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Is an Online Age Calculator Accurate?
+        </h2>
+
+        <p>
+          DailyCalcu uses calendar-based date calculations
+          to determine the difference between two dates.
+          Results are intended for everyday informational
+          use. For official or legal purposes, always
+          verify dates and age against the relevant official
+          records.
+        </p>
+
+        <h2 className="text-2xl font-bold mt-8 mb-4">
+          Example of an Age Calculation
+        </h2>
+
+        <p>
+          Suppose your date of birth is 15 March 1995 and
+          you want to calculate your age on 25 January 2026.
+          Enter both dates into the calculator and it will
+          provide the corresponding years, months, and days
+          between those dates.
+        </p>
+
+        <p>
+          You can change the reference date to another past,
+          present, or future date whenever you want to perform
+          another calculation.
+        </p>
+
+      </article>
+
     </section>
-  );
-}
-
-/* =======================
-   COMPONENTS
-======================= */
-function ResultCard({
-  label,
-  value,
-  color,
-}: {
-  label: string;
-  value: number;
-  color: "blue" | "green" | "purple";
-}) {
-  const colorMap = {
-    blue: "bg-blue-50 text-blue-700 border-blue-200",
-    green: "bg-green-50 text-green-700 border-green-200",
-    purple: "bg-purple-50 text-purple-700 border-purple-200",
-  };
-
-  return (
-    <div className={`border rounded-lg p-4 text-center ${colorMap[color]}`}>
-      <p className="text-sm text-gray-600">{label}</p>
-      <p className="text-2xl font-semibold">{value}</p>
-    </div>
-  );
-}
-
-function ProgressBar({
-  label,
-  value,
-  color,
-}: {
-  label: string;
-  value: number;
-  color: string;
-}) {
-  return (
-    <div className="mb-4">
-      <p className="text-sm text-gray-600 mb-1">
-        {label} – {value.toFixed(1)}%
-      </p>
-      <div className="w-full bg-gray-200 rounded-full h-3">
-        <div
-          className={`${color} h-3 rounded-full`}
-          style={{ width: `${value}%` }}
-        />
-      </div>
-    </div>
   );
 }

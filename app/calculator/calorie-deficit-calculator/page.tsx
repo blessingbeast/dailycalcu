@@ -1,264 +1,380 @@
 import { Metadata } from "next";
 import CalorieDeficitCalculatorClient from "./CalorieDeficitCalculatorClient";
-import RelatedCalculators from "@/app/components/RelatedCalculators";
 
-/* ======================
-   METADATA
-====================== */
 export const metadata: Metadata = {
   title:
-    "Calorie Deficit Calculator | Calculate Calories for Weight Loss – DailyCalcu",
+    "Calorie Deficit Calculator – Free Weight Loss Calorie Calculator | DailyCalcu",
   description:
-    "Use this free calorie deficit calculator to estimate how many calories you should eat to lose weight safely based on your daily calorie needs.",
+    "Calculate your estimated maintenance calories and calorie deficit for weight loss using your age, height, weight, gender, and activity level.",
   alternates: {
-    canonical: "/calorie-deficit-calculator",
+    canonical: "https://dailycalcu.com/calculator/calorie-deficit-calculator",
   },
 };
 
-/* ======================
-   FAQ DATA
-====================== */
-const faqs = [
-  {
-    question: "What is a calorie deficit?",
-    answer:
-      "A calorie deficit occurs when you consume fewer calories than your body burns, which leads to weight loss over time.",
-  },
-  {
-    question: "How does a calorie deficit help with weight loss?",
-    answer:
-      "When you are in a calorie deficit, your body uses stored fat for energy, resulting in gradual weight loss.",
-  },
-  {
-    question: "What is a safe calorie deficit?",
-    answer:
-      "A safe calorie deficit is usually between 300 and 500 calories per day for sustainable weight loss.",
-  },
-  {
-    question: "Can a large calorie deficit be harmful?",
-    answer:
-      "Yes, very large calorie deficits may cause fatigue, muscle loss, and nutrient deficiencies.",
-  },
-  {
-    question: "Does activity level affect calorie deficit?",
-    answer:
-      "Yes, daily activity level plays a major role in determining how many calories your body burns.",
-  },
-  {
-    question: "How long does it take to lose weight in a calorie deficit?",
-    answer:
-      "Most people lose about 0.5 to 1 kg per week with a consistent and healthy calorie deficit.",
-  },
-  {
-    question: "Is this calorie deficit calculator accurate?",
-    answer:
-      "The calculator provides an estimate based on standard formulas; individual results may vary.",
-  },
-  {
-    question: "Can I use this calculator for weight maintenance?",
-    answer:
-      "Yes, by eating at maintenance calories you can maintain your current weight.",
-  },
-  {
-    question: "Does this calculator consider gender?",
-    answer:
-      "Yes, gender is used to calculate BMR accurately using the Mifflin-St Jeor formula.",
-  },
-  {
-    question: "Is this calorie deficit calculator free?",
-    answer:
-      "Yes, this calculator is completely free and does not require registration.",
-  },
-];
-
-/* ======================
-   SCHEMA
-====================== */
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
-    "@type": "Question",
-    name: faq.question,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: faq.answer,
-    },
-  })),
-};
-
-const breadcrumbSchema = {
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  itemListElement: [
-    {
-      "@type": "ListItem",
-      position: 1,
-      name: "Home",
-      item: "https://dailycalcu.com",
-    },
-    {
-      "@type": "ListItem",
-      position: 2,
-      name: "Calculators",
-      item: "https://dailycalcu.com/calculator",
-    },
-    {
-      "@type": "ListItem",
-      position: 3,
-      name: "Calorie Deficit Calculator",
-      item: "https://dailycalcu.com/calculator/calorie-deficit-calculator",
-    },
-  ],
-};
-
-/* ======================
-   PAGE
-====================== */
 export default function Page() {
   return (
     <>
-      {/* FAQ Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
-
-      {/* Breadcrumb Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(breadcrumbSchema),
-        }}
-      />
-
-      {/* Calculator */}
+      {/* CALCULATOR */}
       <CalorieDeficitCalculatorClient />
 
-      {/* ======================
-          LONG-FORM SEO BLOG
-      ====================== */}
-      <article className="max-w-3xl mx-auto mt-20 px-4 text-gray-700 leading-relaxed space-y-6">
-        <h2 className="text-2xl font-bold">
-          What Is a Calorie Deficit?
-        </h2>
+      {/* SUPPORTING CONTENT */}
+      <article className="max-w-3xl mx-auto px-4 pb-16 text-gray-700">
 
-        <p>
-          A calorie deficit occurs when you consume fewer calories than your body
-          needs to maintain its current weight. This deficit forces the body to
-          use stored energy—primarily fat—to meet its energy demands, leading to
-          weight loss over time.
-        </p>
+        {/* INTRODUCTION */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            How to Use the Calorie Deficit Calculator?
+          </h2>
 
-        <p>
-          Creating a calorie deficit is the foundation of fat loss. Regardless
-          of diet type—low-carb, keto, intermittent fasting—weight loss only
-          occurs when calorie intake is lower than calorie expenditure.
-        </p>
+          <p className="mb-4">
+            This calorie deficit calculator estimates how many calories your
+             body may need each day and shows several calorie targets that 
+             can be used when planning for weight loss.
+          </p>
 
-        <h2 className="text-2xl font-bold">
-          How Does a Calorie Deficit Work?
-        </h2>
+          <p className="mb-4">
+            Enter your gender, age, height, weight, and activity level. The calculator calculates your Basal Metabolic 
+            Rate (BMR) and then calculates your maintenance calories per day 
+            based on your activity level.
+          </p>
 
-        <p>
-          Your body burns calories through basic functions like breathing and
-          digestion (BMR), as well as through physical activity. When you eat
-          fewer calories than you burn, your body compensates by burning stored
-          fat.
-        </p>
+          <p>
+            Then you can compare your estimated maintenance calories to lower 
+            calorie targets, to see how different levels of 
+            calorie restriction might affect your daily intake.
+          </p>
+        </section>
 
-        <h2 className="text-2xl font-bold">
-          What Is a Safe Calorie Deficit?
-        </h2>
+        {/* HOW IT WORKS */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            How Does a Calorie Deficit Calculator Work?
+          </h2>
 
-        <p>
-          A safe calorie deficit is typically between <strong>300–500 calories
-          per day</strong>. This allows steady weight loss while preserving muscle
-          mass and energy levels.
-        </p>
+          <p className="mb-4">
+            A calorie deficit happens when you 
+            consume fewer calories than you spend. 
+            If you stay in a calorie deficit over time, you’ll lose weight.
+          </p>
 
-        <h2 className="text-2xl font-bold">
-          Benefits of a Moderate Calorie Deficit
-        </h2>
+          <p className="mb-4">
+            This calculator uses the Mifflin-St Jeor equation to estimate your Basal Metabolic Rate (BMR). 
+            BMR is an estimate of the energy your body needs to carry 
+            out basic functions when you are at rest.
+          </p>
 
-        <ul className="list-disc pl-6">
-          <li>Sustainable fat loss</li>
-          <li>Reduced risk of muscle loss</li>
-          <li>Better hormonal balance</li>
-          <li>Improved long-term adherence</li>
-        </ul>
+          <p className="mb-4">
+            Your estimated BMR is then multiplied by an activity factor to
+            figure out your daily maintenance calorie requirement.
+          </p>
 
-        <h2 className="text-2xl font-bold">
-          Who Should Use a Calorie Deficit Calculator?
-        </h2>
+          <div className="bg-gray-50 border rounded-lg p-5 my-6">
+            <p className="font-semibold text-gray-900 mb-2">
+              The calculation follows this process:
+            </p>
 
-        <p>
-          This calculator is ideal for individuals aiming to lose weight safely,
-          athletes planning cutting phases, and anyone wanting to understand
-          their daily calorie needs.
-        </p>
-
-        <p>
-          It uses proven formulas and adapts results based on your age, gender,
-          height, weight, and activity level.
-        </p>
-      </article>
-
-      <RelatedCalculators
-  items={[
-    {
-      title: "BMI Calculator",
-      description: "Check your Body Mass Index and health category.",
-      href: "/calculator/bmi-calculator",
-      color: "blue",
-    },
-    {
-      title: "Age Calculator",
-      description: "Calculate your exact age in years, months, and days.",
-      href: "/calculator/age-calculator",
-      color: "green",
-    },
-    {
-      title: "SIP Calculator",
-      description: "Estimate returns on your systematic investments.",
-      href: "/calculator/sip-calculator",
-      color: "purple",
-    },
-    {
-      title: "Compound Interest Calculator",
-      description: "Calculate compound interest growth over time.",
-      href: "/calculator/compound-interest-calculator",
-      color: "orange",
-    },
-    {
-      title: "Percentage Calculator",
-      description: "Quickly calculate percentages and differences.",
-      href: "/calculator/percentage-calculator",
-      color: "pink",
-    },
-    {
-      title: "Simple Interest Calculator",
-      description: "Calculate simple interest for loans or savings.",
-      href: "/calculator/simple-interest-calculator",
-      color: "indigo",
-    },
-  ]}
-/>
-
-
-      {/* Visible FAQ */}
-      <section className="max-w-3xl mx-auto mt-20 px-4">
-        <h2 className="text-2xl font-semibold mb-8">
-          Frequently Asked Questions
-        </h2>
-
-        {faqs.map((faq, index) => (
-          <div key={index} className="mb-6">
-            <h3 className="font-medium text-lg">{faq.question}</h3>
-            <p className="text-gray-600 mt-2">{faq.answer}</p>
+            <ol className="list-decimal list-inside space-y-2">
+              <li>Estimate your Basal Metabolic Rate (BMR).</li>
+              <li>Apply an activity multiplier.</li>
+              <li>Estimate your maintenance calories.</li>
+              <li>Compare maintenance calories with a lower target.</li>
+            </ol>
           </div>
-        ))}
-      </section>
+        </section>
+
+        {/* BMR */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            What Is BMR?
+          </h2>
+
+          <p className="mb-4">
+            Basal Metabolic Rate, or BMR, is an estimate of how much energy
+            your body uses to support daily required functions while at rest.
+          </p>
+
+          <p>
+            BMR does not represent your total daily calorie requirement.
+            Your daily energy needs are also affected by your physical activity,
+            exercise, body composition, and other individual factors.
+          </p>
+        </section>
+
+        {/* MAINTENANCE CALORIES */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            What Are Maintenance Calories?
+          </h2>
+
+          <p className="mb-4">
+            Maintenance calories are an estimate of how many calories you may
+            need to consume to maintain your current body weight under your
+            daily usual activity level.
+          </p>
+
+          <p>
+            Your actual calorie needs can be higher or lower than the
+            calculator estimate. Treat the result as a starting estimate
+            rather than an exact measurement of your individual energy
+            requirements.
+          </p>
+        </section>
+
+        {/* EXAMPLE */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Calorie Deficit Example
+          </h2>
+
+          <p className="mb-4">
+            Suppose your estimated maintenance requirement is 2,500 calories
+            per day. Eating fewer calories than this amount would create a
+            calorie deficit and you might lose weight and also get sick.
+          </p>
+
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-5">
+            <p className="font-semibold text-gray-900 mb-3">
+              Example:
+            </p>
+
+            <ul className="space-y-2">
+              <li>Estimated maintenance calories: 2,500 kcal/day</li>
+              <li>Daily intake: 2,000 kcal/day</li>
+              <li>Estimated calorie deficit: 500 kcal/day</li>
+            </ul>
+          </div>
+
+          <p className="mt-4">
+            This is only an example for you to understand how the calorie deficit works. Your appropriate calorie intake depends
+            on your individual circumstances like your physical activites, exercises etc, and should not be determined
+            from this example alone.
+          </p>
+        </section>
+
+        {/* SAFE DEFICIT */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            What Is a Reasonable Calorie Deficit?
+          </h2>
+
+          <p className="mb-4">
+            There is not a single calorie deficit that is appropriate for
+            everyone. It varies person to person. A commonly used approach is to create a moderate deficit
+            rather than heavily reducing food intake.
+          </p>
+
+          <p className="mb-4">
+            A larger deficit is not necessarily better. Very aggressive
+            calorie restriction can make it harder to achieve nutritional needs that a person needs on daily basis
+            and may not be sustainable and can get you sick.
+          </p>
+
+          <p>
+            People who are pregnant, underweight, growing teen or adults, have a
+            medical condition of any kind, have a history of an eating disorder, or have
+            other special dietary needs like some ellergy, should seek appropriate professional
+            guidance rather than relying on a calculator alone.
+          </p>
+        </section>
+
+        {/* WEIGHT LOSS */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            How Many Calories Should I Eat to Lose Weight?
+          </h2>
+
+          <p className="mb-4">
+            To lose weight, your average calorie intake normally needs to be
+            lower then the amount of energy your body uses over time in a day.
+          </p>
+
+          <p>
+            However, the exact calorie target varies from person to person.
+            Your body weight, height, age, activity level, daily routine, exrcises, food intake, quality of food,
+             and
+            changes in energy spends can all affect your results.
+          </p>
+        </section>
+
+        {/* LIMITATIONS */}
+        <section className="mt-10">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            How Accurate Is a Calorie Deficit Calculator?
+          </h2>
+
+          <p className="mb-4">
+            Any calorie deficit calculator provides an estimate, not a precise
+            measurement of your metabolism or daily energy expenditure. it just give you something to start your journey with.
+
+          </p>
+
+          <p className="mb-4">
+            Any two people with the same age, height, weight, and activity level
+            can have seperate calorie requirements. Your actual needs can
+            also change as your body weight and activity level change. It also depends on the food they eat, how often
+            they eat etc.
+          </p>
+
+          <p>
+            Use the calculator as a starting point and consider your real-world
+            weight trend and circumstances when finding out if your
+            estimated calorie intake is appropriate.
+          </p>
+        </section>
+
+        {/* RELATED CALCULATORS */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-4">
+            Related Calculators
+          </h2>
+
+          <p className="mb-5">
+            These calculators can provide additional information related to
+            calories, body measurements, and everyday health calculations.
+          </p>
+
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <li>
+              <a
+                href="/calculator/bmr-calorie-calculator"
+                className="block border rounded-lg p-4 text-blue-600 hover:underline"
+              >
+                BMR & Calorie Calculator
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/calculator/bmi-calculator"
+                className="block border rounded-lg p-4 text-blue-600 hover:underline"
+              >
+                BMI Calculator
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/calculator/ideal-weight-calculator"
+                className="block border rounded-lg p-4 text-blue-600 hover:underline"
+              >
+                Ideal Weight Calculator
+              </a>
+            </li>
+
+            <li>
+              <a
+                href="/calculator/age-calculator"
+                className="block border rounded-lg p-4 text-blue-600 hover:underline"
+              >
+                Age Calculator
+              </a>
+            </li>
+          </ul>
+        </section>
+
+        {/* FAQ */}
+        <section className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
+            Frequently Asked Questions
+          </h2>
+
+          <div className="space-y-7">
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                What is a calorie deficit?
+              </h3>
+              <p>
+                A calorie deficit occurs when you consume fewer calories than
+                your body uses over a period of time. A sustained deficit can
+                contribute to weight loss.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                How do I calculate my calorie deficit?
+              </h3>
+              <p>
+                First estimate your daily maintenance calories. Your calorie
+                deficit is the difference between your maintenance calorie
+                requirement and the amount of calories you consume.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Does activity level affect calorie needs?
+              </h3>
+              <p>
+                Yes. Physical activity is one of the factors that affects your
+                daily energy requirements. This calculator uses different
+                activity multipliers when estimating maintenance calories.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Can I use this calculator for maintenance?
+              </h3>
+              <p>
+                Yes. The maintenance calorie result provides an estimate of the
+                daily calories required to maintain your current weight under
+                the selected activity level.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Can a calorie deficit be too large?
+              </h3>
+              <p>
+                Yes. Very large calorie deficits can make it difficult to meet
+                nutritional needs and may be difficult to maintain. A
+                personalized approach is preferable to extreme restriction.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Is the calorie deficit calculator accurate?
+              </h3>
+              <p>
+                It provides an estimate based on the information entered and
+                the formula used. Individual calorie requirements can differ,
+                so the result should be treated as an estimate rather than an
+                exact measurement.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                Is this calorie deficit calculator free?
+              </h3>
+              <p>
+                Yes. The DailyCalcu calorie deficit calculator is free to use
+                and does not require registration or a download.
+              </p>
+            </div>
+
+          </div>
+        </section>
+
+        {/* DISCLAIMER */}
+        <section className="mt-12 border-t pt-8">
+          <h2 className="text-xl font-semibold text-gray-900 mb-3">
+            Important Note
+          </h2>
+
+          <p className="text-sm text-gray-600">
+            The results provided by this calculator are estimates for general
+            informational purposes. They are not medical advice and should not
+            be used to diagnose or treat a health condition. Individual calorie
+            requirements can vary considerably.
+          </p>
+        </section>
+
+      </article>
     </>
   );
 }
